@@ -6,10 +6,11 @@ python:
 
 install:
   - pip install pytest-cov
+  - pip install coverage==5.2.1
+  - pip install codecov
 
 script:
-  - pip install coverage==5.2.1
-  - pytest
+  - coverage run tests
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
