@@ -1,9 +1,8 @@
 from flask_sqlalchemy import SQLAlchemy
 from marshmallow_sqlalchemy import ModelSchema
 from marshmallow import fields
-from core import app
+from core import app, db
 
-db = SQLAlchemy(app)
 
 class Item(db.Model):
     __tablename__ = 'items'
@@ -34,6 +33,7 @@ class ItemSchema(ModelSchema):
     class Meta(ModelSchema.Meta):
         model = Item
         sqla_session = db.session
+
     id = fields.Number(dump_only=True)
     code = fields.String(required=True)
     description = fields.String(required=True)
@@ -41,6 +41,3 @@ class ItemSchema(ModelSchema):
     category_id = fields.Integer(required=True)
     price = fields.Float(required=True)
 
-
-if __name__ == "__main__":
-    db.create_all()
