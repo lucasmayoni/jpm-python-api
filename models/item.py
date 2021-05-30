@@ -1,6 +1,7 @@
-from flask_sqlalchemy import SQLAlchemy
 from marshmallow_sqlalchemy import ModelSchema
 from marshmallow import fields
+from sqlalchemy.orm import backref
+from .category import Category
 from core import app, db
 
 
@@ -10,7 +11,8 @@ class Item(db.Model):
     code = db.Column(db.String(20))
     description = db.Column(db.String(100))
     provider_id = db.Column(db.Integer)
-    category_id = db.Column(db.Integer)
+    category_id = db.Column(db.Integer, db.ForeignKey('categories.id'))
+    category = db.relationship("Category", backref=backref("categories", uselist=False))
     price = db.Column(db.Float)
 
     def create(self):

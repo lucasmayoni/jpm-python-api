@@ -11,4 +11,4 @@ def create_tables():
     db.create_all()
 
 
-from api import items
+from api import items, categories
